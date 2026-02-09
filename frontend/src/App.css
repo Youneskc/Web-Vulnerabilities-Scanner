@@ -1,0 +1,192 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App-header {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.App-header h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 15px;
+  font-weight: 800;
+  animation: slideDown 0.8s ease;
+}
+
+.App-header p {
+  color: #a0a0a0;
+  font-size: 1.3rem;
+  margin-bottom: 50px;
+  animation: slideDown 0.8s ease 0.2s backwards;
+}
+
+/* Formulaire */
+.scan-form {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  display: flex;
+  gap: 15px;
+  animation: slideUp 0.8s ease 0.4s backwards;
+}
+
+.scan-form input {
+  flex: 1;
+  padding: 18px 25px;
+  border: 2px solid #3a3a5c;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  font-size: 16px;
+  color: white;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.scan-form input::placeholder {
+  color: #7a7a9d;
+}
+
+.scan-form input:focus {
+  border-color: #667eea;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.scan-form button {
+  padding: 18px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.5s;
+}
+
+.scan-form button:hover::before {
+  left: 100%;
+}
+
+.scan-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.scan-form button:disabled {
+  background: linear-gradient(135deg, #4a4a6a 0%, #5a5a7a 100%);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Résultats */
+.results {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border: 2px solid #3a3a5c;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.results h2 {
+  color: #667eea;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.results pre {
+  background: rgba(0, 0, 0, 0.3);
+  color: #a0e9ff;
+  padding: 25px;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  border: 1px solid #2a2a4c;
+  font-family: 'Courier New', monospace;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .scan-form {
+    flex-direction: column;
+  }
+  
+  .scan-form button {
+    width: 100%;
+  }
+  
+  .results {
+    padding: 25px;
+  }
+}

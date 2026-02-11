@@ -1,23 +1,32 @@
-import React from "react";
+import React, { useState } from 'react';
 import './App.css';
-import axios from "axios";
+import axios from 'axios';
+import ScoreCard from './components/ScoreCard';
+import VulnerabilityList from './components/VulnerabilityList';
+import SecurityHeaders from './components/SecurityHeaders';  
 
 function App() {
-  const [url,setUrl] = React.useState("");
-  const [loading,setLoading] = React.useState(false);
-  const [results,setResults] = React.useState(null);
+  const [url, setUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState(null);
 
-   const handleScan = async(e) =>{
+  const handleScan = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try{
-      const res = await axios.post("http://localhost:5000/scan",{url});
-      setResults(res.data);
-    }catch(err){
-      console.error(err);
+    setResults(null);
+    
+    try {
+      const response = await axios.post('http://localhost:5000/api/scan', {
+        url: url
+      });
+      setResults(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error:', error);
+      setLoading(false);
+      alert('Scan failed. Please check the URL and try again.');
     }
-    setLoading(false);
-   }
+  };
 
   return (
     <div className="App">
@@ -38,10 +47,18 @@ function App() {
           </button>
         </form>
 
+        {loading && (
+          <div className="loading">
+            <div className="spinner"></div>
+            <p>Scanning {url}...</p>
+          </div>
+        )}
+
         {results && (
-          <div className="results">
-            <h2>Scan Results</h2>
-            <pre>{JSON.stringify(results, null, 2)}</pre>
+          <div className="results-container">
+            <ScoreCard score={results.score} />
+            <VulnerabilityList vulnerabilities={results.vulnerabilities} />
+            <SecurityHeaders securityHeaders={results.securityHeaders} />  {/* ← Ajoute ça */}
           </div>
         )}
       </header>
@@ -50,10 +67,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
